@@ -3,6 +3,6 @@
     "description": "A chrome new tab extension that displays a random Spanish word and its translation",
     "version": "0.0.0.1",
     "chrome_url_overrides" : {
-        "newtab": "newtab.html"
+        "newtab": "spanTab.html"
     }
  }
