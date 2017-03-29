@@ -11,12 +11,60 @@
 		<script src="js/net/net-utils.js"></script>
 		<script src="js/net/transltr-utils.js"></script>
 		<script src="js/net/wordnik-utils.js"></script>
-		<script src="js/spanTab.js"></script>
+		
+		<style>
+			body {
+				margin: 0;
+			}
+
+			.parent {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.child {
+				position: absolute;
+				top: -9999px;
+				bottom: -9999px;
+				left: -9999px;
+				right: -9999px;
+				margin: auto;
+				min-width: 100%;
+				min-height: 100%;
+			}
+
+			.inside {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
 
 	</head>
 
 	<body>
-		<h1>Hello, World!</h1>
+		
+		<table cellspacing="0" width="100%" height="100%">
+			<tr>
+				<td class="parent">
+					
+					<img class="child" src="images/grainy_spanish_flag.jpg">
+					<div class="inside">
+						<p>Here's some more text<br/>And a new line for ya</p>
+						<p>Here's some more text<br/>And a new line for ya</p>
+						<b>Hello, World</b>
+						<p>Here's some more text<br/>And a new line for ya</p>
+						<p>Here's some more text<br/>And a new line for ya</p>
+					</div>
+				</td>
+				<td class="parent">
+					<img class="child" src="images/grainy_us_flag.jpg">
+				</td>
+			</tr>
+		</table>
+
+		
 	</body>
 
 </html>
