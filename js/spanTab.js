@@ -1,40 +1,27 @@
 ;(function(){
 
-	let transltrUtils;
-	let wordnikUtils;
+	let netUtils;
 
 	$(document).ready(function() {
-		transltrUtils = window.transltrUtils;
-		wordnikUtils = window.wordnikUtils;
+		netUtils = window.netUtils;
 
-		getRandomWordAndMetadata().then(function(result) {
-			alert('word: ' + result.word + '\ndefinition: ' + result.definitions[0].text + '\nTranslation: ' + result.translation);
-		})
+		let src = 'http://api.verbix.com/conjugator/html?language=spa&tableurl=https://raw.githubusercontent.com/mmoghaddam385/SpanishWordTab/master/verbix-template.html&verb=';
+		src += 'almorzar';
 
+
+		$('#iframeConjugations').attr('src', src);
+		$('#iframeConjugations').on('load', function() { 
+			$('#imgLoading').hide();
+			$('#iframeConjugations').show();
+		 });
+
+		//  netUtils.conjugateVerb('Ser', function(result) {
+		//  	alert (result);
+		//  });
 	});
 
-	function getRandomWordAndMetadata() {
-		return new Promise(function(resolve, reject) {
-			wordnikUtils.randomWord().then(function (randomWord) {
-				wordnikUtils.definition(randomWord.word).then(function(definitions) {
-					transltrUtils.translate(randomWord.word).then(function(translation) {
-						let result = {
-							word: randomWord.word,
-							definitions: definitions,
-							translation: translation.translationText
-						};
-
-						resolve(result);
-					}, function(errorText) {
-						reject(errorText);
-					});
-				}, function (errorText) {
-					reject(errorText);
-				});
-			}, function(errorText) {
-				reject(errorText);
-			});
-		});
+	function getRandomWord() {
+		return {word: 'To Be', translation: "ser", isVerb: true};
 	}
 
 })();

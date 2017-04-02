@@ -1,24 +1,20 @@
 ;(function() {
 
+	function genericAjax(url, success, error) {
+		$.ajax({
+			url: url,
+			type: 'GET',
+			success: success,
+			error: error
+		});
+	}
+
 	let netUtilsExport = {
-		genericAjax: function(url, success, error) {
-			$.ajax({
-				url: url,
-				success: success,
-				error: error
-			});
-		},
+		conjugateVerb: function(verb, success, error) {
+			let url = 'http://api.verbix.com/conjugator/html?language=spa&tableurl=https://raw.githubusercontent.com/mmoghaddam385/SpanishWordTab/master/verbix-template.html&verb=';
+			url += verb;
 
-		addUrlParameter: function(url, param, value) {
-			if (url.indexOf('?') >= 0) {
-				// the url already has parameters, just add this one
-				url += '&';
-			} else {
-				// first parameter in the url, add the ?
-				url += '?';
-			}
-
-			return url + param + '=' + value;
+			genericAjax(url, success, error);
 		}
 	}
 
