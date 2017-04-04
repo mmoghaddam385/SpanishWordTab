@@ -6,6 +6,7 @@
 		<script src="js/vendors/jquery-3.2.0.min.js"></script>
 
 		<script src="js/net/net-utils.js"></script>
+		<script src="js/settings.js"></script>
 		<script src="js/spanTab.js"></script>
 		
 		<link rel="stylesheet" href="css/main.css">
@@ -16,9 +17,9 @@
 		
 		<table cellspacing="0" width="100%" height="100%">
 			<tr>
-				<td class="parent">
+				<td id="divSpanishColor" class="parent">
 					<div class="half">
-						<img class="child" src="images/grainy_spanish_flag.jpg">
+						<img id="imgSpanishFlag" class="child" style="display: none;" src="images/grainy_spanish_flag.jpg">
 						<div class="child"></div>
 						<div id="divSpanish" class="inside">
 							<b id="bSpanish"></b>
@@ -30,9 +31,10 @@
 					</div>
 				</td>
 				<td class="vertical-divider"></td>
-				<td class="parent">
+				<td id="divEnglishColor" class="parent">
 					<div class="half">
-						<img class="child" src="images/grainy_us_flag.jpg">
+						<img id="imgUSFlag" class="child" style="display: none;" src="images/grainy_us_flag.jpg">
+						<div class="child"></div>
 						<div id="divEnglish" class="inside">
 							<b id="bEnglish"></b>
 							<hr class="horizontal-divider"
