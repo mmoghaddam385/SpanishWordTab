@@ -4,5 +4,7 @@
     "version": "0.0.0.1",
     "chrome_url_overrides" : {
         "newtab": "spanTab.html"
-    }
+    },
+
+    "manifest_version": 2
  }

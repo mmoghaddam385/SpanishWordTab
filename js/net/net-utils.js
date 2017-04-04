@@ -4,15 +4,15 @@
 		$.ajax({
 			url: url,
 			type: 'GET',
+			dataType: 'json',
 			success: success,
 			error: error
 		});
 	}
 
 	let netUtilsExport = {
-		conjugateVerb: function(verb, success, error) {
-			let url = 'http://api.verbix.com/conjugator/html?language=spa&tableurl=https://raw.githubusercontent.com/mmoghaddam385/SpanishWordTab/master/verbix-template.html&verb=';
-			url += verb;
+		getLocalFile: function(file, success, error) {
+			let url = chrome.extension.getURL(file);
 
 			genericAjax(url, success, error);
 		}

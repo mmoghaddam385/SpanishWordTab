@@ -1,12 +1,9 @@
 <html>
 
 	<head>
-		<title>Hello World!</title>
+		<title>Word of the Tab</title>
 
-		<script
-		  src="https://code.jquery.com/jquery-3.2.1.min.js"
-		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		  crossorigin="anonymous"></script>
+		<script src="js/vendors/jquery-3.2.0.min.js"></script>
 
 		<script src="js/net/net-utils.js"></script>
 		<script src="js/spanTab.js"></script>
@@ -23,12 +20,12 @@
 					<div class="half">
 						<img class="child" src="images/grainy_spanish_flag.jpg">
 						<div class="child"></div>
-						<div class="inside">
+						<div id="divSpanish" class="inside">
 							<b id="bSpanish"></b>
 							<hr class="horizontal-divider">
 
 							<img style="display: none;" id="imgLoading" src="images/loading.svg"></img>
-							<iframe id="iframeConjugations"></iframe>
+							<iframe scrolling="no" id="iframeConjugations"></iframe>
 						</div>
 					</div>
 				</td>
@@ -36,7 +33,7 @@
 				<td class="parent">
 					<div class="half">
 						<img class="child" src="images/grainy_us_flag.jpg">
-						<div class="inside">
+						<div id="divEnglish" class="inside">
 							<b id="bEnglish"></b>
 							<hr class="horizontal-divider"
 						</div>

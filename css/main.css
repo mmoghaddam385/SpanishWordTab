@@ -6,7 +6,6 @@ body {
 
 p,b, span, th {
     font-family: 'Oswald';
-    
     color: white;
 }
 
@@ -57,19 +56,8 @@ b {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
 
-.verbtense {
-    width: 100%;
-    text-align: center;
-}
-
-.pronoun {
     display: none;
-}
-
-.tense-separator {
-    width: 50%;
 }
 
 iframe {

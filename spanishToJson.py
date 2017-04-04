@@ -5,9 +5,9 @@
 """
 
 def toJSON(raw):
-	split = raw.strip().replace('\\', '/').replace('\'', '\\\'').split('|')
+	split = raw.strip().replace('\\', '/').split('|')
 	isVerb = split[1].startswith('to ')
-	json = '{word: \'' + split[1] + '\', translation: \'' + split[0] + '\', isVerb: ' + str(isVerb).lower() + '},\n'
+	json = '{"word": "' + split[1] + '", "translation": "' + split[0] + '", "isVerb": ' + str(isVerb).lower() + '},\n'
 
 	return json;
 
