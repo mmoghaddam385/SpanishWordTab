@@ -1,0 +1,32 @@
+body {
+    font-size: 90%;
+}
+
+select {
+    margin-left: 1em;
+}
+
+.half {
+    width: 50%;
+    text-align: center;
+
+    margin-bottom: 2em;
+}
+
+.selected {
+    background-color: #64B5F6;
+}
+
+
+.bg-option {
+    max-width: 80%;
+    max-height: 80%;
+
+    cursor: pointer;
+    padding: 3px;
+
+    border: 1px solid grey;
+    border-radius: 3px;
+
+    transition: 0.2s all;
+}

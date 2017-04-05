@@ -17,10 +17,12 @@
 		$('#imgSettings').on('click', openOptionsPage);
 
 		settingsUtils.getSettings([settingsUtils.BACKGROUND_TYPE, settingsUtils.LANGUAGE], function(settings) {
+			let language = settings[settingsUtils.LANGUAGE] || settingsUtils.DEFAULT_LANGUAGE;
+            let bgType = settings[settingsUtils.BACKGROUND_TYPE] || settingsUtils.DEFAULT_BACKGROUND_TYPE;
 
-			getRandomWordAndFlags(settings[settingsUtils.LANGUAGE]).then(function(result) {
+			getRandomWordAndFlags(language).then(function(result) {
 
-				setBackground(settings[settingsUtils.BACKGROUND_TYPE], result.leftFlag, result.rightFlag);
+				setBackground(bgType, result.leftFlag, result.rightFlag);
 
 				$('#bLeft').html(result.word.leftWord);
 				$('#bRight').html(result.word.rightWord);
