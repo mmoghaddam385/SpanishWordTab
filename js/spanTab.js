@@ -1,6 +1,8 @@
 ;(function(){
 
 	const conjugationsUrl = 'http://api.verbix.com/conjugator/html?language=spa&tableurl=https://raw.githubusercontent.com/mmoghaddam385/SpanishWordTab/master/verbix-template.html&verb=';
+	const LEFT_SIDE = 'Left';
+	const RIGHT_SIDE = 'Right';
 
 	let netUtils;
 	let settingsUtils;
@@ -9,64 +11,105 @@
 		netUtils = window.netUtils;
 		settingsUtils = window.settings;
 		
-		$('#iframeConjugations').on('load', onConjugationsLoad);
+		$('#iframeLeftConjugations').on('load', onConjugationsLoad(LEFT_SIDE));
+		$('#iframeRightConjugations').on('load', onConjugationsLoad(RIGHT_SIDE));
 
-		settingsUtils.getSettings([settingsUtils.BACKGROUND_TYPE, settingsUtils.LANGUAGE], function(results) {
-			if (results[settingsUtils.BACKGROUND_TYPE] === settingsUtils.FLAG_BACKGROUND) {
-				$('#imgSpanishFlag').show();
-				$('#imgUSFlag').show();
-			} else if (results[settingsUtils.BACKGROUND_TYPE] === settingsUtils.COLORS_BACKGROUND) {
-				$('#divEnglishColor').css('background-color', getRandomColor());
-				$('#divSpanishColor').css('background-color', getRandomColor());
-			}
+		settingsUtils.getSettings([settingsUtils.BACKGROUND_TYPE, settingsUtils.LANGUAGE], function(settings) {
 
-			if (results[settingsUtils.LANGUAGE] === 'SPANISH') {
-				getRandomWord().then(function(word) {
-					$('#bSpanish').html(word.translation);
-					$('#bEnglish').html(word.word);
+			getRandomWordAndFlags(settings[settingsUtils.LANGUAGE]).then(function(result) {
 
-					$('#divSpanish').fadeIn();
-					$('#divEnglish').fadeIn();
+				setBackground(settings[settingsUtils.BACKGROUND_TYPE], result.leftFlag, result.rightFlag);
 
-					document.title = 'Word of the Tab: ' + word.translation;
+				$('#bLeft').html(result.word.leftWord);
+				$('#bRight').html(result.word.rightWord);
 
-					if (word.isVerb) {
-						loadConjugations(word.translation);
-					}
-				}, function(error) {
+				$('#divLeft').fadeIn();
+				$('#divRight').fadeIn();
 
-				});
-			}
+				document.title = 'Word of the Tab: ' + result.word.leftWord;
+
+				if (result.word.isLeftVerb) {
+					loadConjugations(result.word.leftWord, LEFT_SIDE);
+				}
+
+				if (result.word.isRightVerb) {
+					loadConjugations(result.word.rightWord, RIGHT_SIDE)
+				}
+
+			}, function(error) {
+				console.error('there was an error retrieving settings: ', error);
+			});
 		});
 
 	});
 
-	function loadConjugations(verb) {
-		$('#iframeConjugations').hide();
+	function setBackground(bgType, leftFlag, rightFlag) {
+		switch (bgType) {
+			case settingsUtils.FLAG_BACKGROUND:
+				showFlags(leftFlag, rightFlag);
+				break;
+			case settingsUtils.COLOR_BACKGROUND:
+				setRandomBackgrounds();
+				break;
+			default:
+				console.error('Error: unkown backgorund type: ', bgType);
+		}
+	}
+
+	function showFlags(left_img, right_img) {
+		$('#imgLeftFlag').attr('src', left_img);
+		$('#imgRightFlag').attr('src', right_img);
+
+		$('#imgLeftFlag').fadeIn();
+		$('#imgRightFlag').fadeIn();
+	}
+
+	function setRandomBackgrounds() {
+		$('#divLeftColor').css('background-color', getRandomColor());
+		$('#divRightColor').css('background-color', getRandomColor());
+	}
+
+	function loadConjugations(verb, side) {
+		$('#iframe' + side + 'Conjugations').hide();
 		
-		$('#imgLoading').fadeIn(1000);
+		$('#img' + side + 'Loading').fadeIn(1000);
 
 		let src = conjugationsUrl + verb;
-		$('#iframeConjugations').attr('src', src);
+		$('#iframe' + side + 'Conjugations').attr('src', src);
 	}
 
-	function onConjugationsLoad() {
-		$('#imgLoading').hide();
-		$('#iframeConjugations').fadeIn();
+	function onConjugationsLoad(side) {
+		return function() {
+			$('#img' + side + 'Loading').hide();
+			$('#iframe' + side + 'Conjugations').fadeIn();
+		}
 	}
 
-	function getRandomWord() {
+	function getRandomWordAndFlags(language) {
 		return new Promise(function(resolve, reject) {
-			netUtils.getLocalFile('languages/spanish.json', function(result) {
+			netUtils.getLocalFile('languages/' + language + '.json', function(result) {
 				let randIndex = Math.floor(Math.random() * result.words.length);
 
-				resolve(result.words[randIndex]);
+				let res = {
+					word: {
+						leftWord: result.words[randIndex].l,
+						rightWord: result.words[randIndex].r,
+						isLeftVerb: result.words[randIndex].lv,
+						isRightVerb: result.words[randIndex].rv,
+					},
+					leftFlag: result.left_flag,
+					rightFlag: result.right_flag
+				};
+
+				resolve(res);
 			}, function(error, status) {
 				reject(status);
 			});
 		});
 	}
 
+	// get a random color that white text will be visible on
+	// calculated by randomly assigning a hue to 100% saturation and 35% lightness HSL
 	function getRandomColor() {
 		let randomHue = Math.random();
 		let saturation = 1;
