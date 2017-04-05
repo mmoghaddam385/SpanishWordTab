@@ -6,6 +6,11 @@
         "newtab": "spanTab.html"
     },
 
+    "options_ui": {
+        "page": "optionsPage.html",
+        "chrome_style": true
+    },
+
     "permissions": [
         "storage"
     ],

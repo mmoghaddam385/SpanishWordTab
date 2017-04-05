@@ -14,6 +14,8 @@
 		$('#iframeLeftConjugations').on('load', onConjugationsLoad(LEFT_SIDE));
 		$('#iframeRightConjugations').on('load', onConjugationsLoad(RIGHT_SIDE));
 
+		$('#imgSettings').on('click', openOptionsPage);
+
 		settingsUtils.getSettings([settingsUtils.BACKGROUND_TYPE, settingsUtils.LANGUAGE], function(settings) {
 
 			getRandomWordAndFlags(settings[settingsUtils.LANGUAGE]).then(function(result) {
@@ -106,6 +108,16 @@
 				reject(status);
 			});
 		});
+	}
+
+	function openOptionsPage() {
+		if (chrome.runtime.openOptionsPage) {
+			// New way to open options pages, if supported (Chrome 42+).
+			chrome.runtime.openOptionsPage();
+		} else {
+			// Reasonable fallback.
+			window.open(chrome.runtime.getURL('options.html'));
+		}
 	}
 
 	// get a random color that white text will be visible on

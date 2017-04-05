@@ -66,3 +66,16 @@ iframe {
     border: 0;
     display: none;
 }
+
+.settings-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 2em;
+
+    opacity: 0.4;
+}
+
+.settings-icon:hover {
+    opacity: 0.8;
+}
