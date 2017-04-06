@@ -1,6 +1,6 @@
 ;(function(){
 
-	const conjugationsUrl = 'http://api.verbix.com/conjugator/html?language=spa&tableurl=https://raw.githubusercontent.com/mmoghaddam385/SpanishWordTab/master/verbix-template.html&verb=';
+	const conjugationsUrl = 'http://api.verbix.com/conjugator/html?&tableurl=https://raw.githubusercontent.com/mmoghaddam385/SpanishWordTab/master/verbix-template.html';
 	const LEFT_SIDE = 'Left';
 	const RIGHT_SIDE = 'Right';
 
@@ -22,22 +22,28 @@
 
 			getRandomWordAndFlags(language).then(function(result) {
 
+				// set the background
 				setBackground(bgType, result.leftFlag, result.rightFlag);
 
+				// set the words
 				$('#bLeft').html(result.word.leftWord);
 				$('#bRight').html(result.word.rightWord);
 
 				$('#divLeft').fadeIn();
 				$('#divRight').fadeIn();
 
+				// set the tab title
 				document.title = 'Word of the Tab: ' + result.word.leftWord;
 
-				if (result.word.isLeftVerb) {
-					loadConjugations(result.word.leftWord, LEFT_SIDE);
-				}
+				// if its a verb, conjugate
+				if (result.word.isVerb) {
+					if (result.conjugations.conjugateLeft) {
+						loadConjugations(result.word.leftWord, result.conjugations.leftLangCode, LEFT_SIDE);
+					}
 
-				if (result.word.isRightVerb) {
-					loadConjugations(result.word.rightWord, RIGHT_SIDE)
+					if (result.conjugations.conjugateRight) {
+						loadConjugations(result.word.rightWord, result.conjugations.rightLangCode, RIGHT_SIDE);
+					}
 				}
 
 			}, function(error) {
@@ -73,12 +79,12 @@
 		$('#divRightColor').css('background-color', getRandomColor());
 	}
 
-	function loadConjugations(verb, side) {
+	function loadConjugations(verb, langCode, side) {
 		$('#iframe' + side + 'Conjugations').hide();
 		
 		$('#img' + side + 'Loading').fadeIn(1000);
 
-		let src = conjugationsUrl + verb;
+		let src = conjugationsUrl + '&language=' + langCode + '&verb=' + verb;
 		$('#iframe' + side + 'Conjugations').attr('src', src);
 	}
 
@@ -89,17 +95,43 @@
 		}
 	}
 
+	/**
+	 * returns object {
+	 * 		word: {
+	 *	 		leftWord: [string],
+	 * 			rightWord: [string],
+	 * 			isVerb: [boolean]
+	 *		},
+	 * 		conjugations: {
+	 * 			conjugateLeft: [boolean], whether or not to conjugate the left word if it's a verb
+	 * 			leftLangCode: [string], the language code to conjugate with verbix
+	 * 
+	 * 			conjugateRight: [boolean],
+	 * 			rightLangCode: [string]
+	 *		},
+	 *		leftFlag: [img_url],
+	 *		rightFlag: [img_url]
+	 * }
+	 */
 	function getRandomWordAndFlags(language) {
 		return new Promise(function(resolve, reject) {
 			netUtils.getLocalFile('languages/' + language + '.json', function(result) {
 				let randIndex = Math.floor(Math.random() * result.words.length);
 
+				console.log(JSON.stringify(result.conjugations));
+
 				let res = {
 					word: {
 						leftWord: result.words[randIndex].l,
 						rightWord: result.words[randIndex].r,
-						isLeftVerb: result.words[randIndex].lv,
-						isRightVerb: result.words[randIndex].rv,
+						isVerb: result.words[randIndex].isVerb,
+					},
+					conjugations: {
+						conjugateLeft: result.conjugations.conjugate_left,
+						leftLangCode: result.conjugations.left_language_code,
+
+						conjugateRight: result.conjugations.conjugate_right,
+						rightLangCode: result.conjugations.right_language_code
 					},
 					leftFlag: result.left_flag,
 					rightFlag: result.right_flag
