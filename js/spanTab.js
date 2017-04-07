@@ -14,6 +14,10 @@
 		$('#iframeLeftConjugations').on('load', onConjugationsLoad(LEFT_SIDE));
 		$('#iframeRightConjugations').on('load', onConjugationsLoad(RIGHT_SIDE));
 
+		$('#iframeLeftConjugations').on('error', function(arg) {
+			alert('there was an rtort');
+		})
+
 		$('#imgSettings').on('click', openOptionsPage);
 
 		settingsUtils.getSettings([settingsUtils.BACKGROUND_TYPE, settingsUtils.LANGUAGE], function(settings) {
@@ -80,12 +84,16 @@
 	}
 
 	function loadConjugations(verb, langCode, side) {
-		$('#iframe' + side + 'Conjugations').hide();
-		
-		$('#img' + side + 'Loading').fadeIn(1000);
+		if (navigator.onLine) {
+			$('#iframe' + side + 'Conjugations').hide();
+			
+			$('#img' + side + 'Loading').fadeIn(1000);
 
-		let src = conjugationsUrl + '&language=' + langCode + '&verb=' + verb;
-		$('#iframe' + side + 'Conjugations').attr('src', src);
+			let src = conjugationsUrl + '&language=' + langCode + '&verb=' + verb;
+			$('#iframe' + side + 'Conjugations').attr('src', src);
+		} else {
+			$('#div' + side + 'NoNetwork').show();
+		}
 	}
 
 	function onConjugationsLoad(side) {

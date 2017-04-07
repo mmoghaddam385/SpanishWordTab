@@ -3,6 +3,9 @@
 	<head>
 		<title>Word of the Tab</title>
 
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
 		<script src="js/vendors/jquery-3.2.0.min.js"></script>
 
 		<script src="js/net/net-utils.js"></script>
@@ -27,6 +30,7 @@
 
 							<img style="display: none;" id="imgLeftLoading" src="images/loading.svg"></img>
 							<iframe scrolling="no" id="iframeLeftConjugations"></iframe>
+							<span id="divLeftNoNetwork" style="display: none;">Conjugations are only available when connected to the internet</span>
 						</div>
 					</div>
 				</td>
@@ -41,13 +45,17 @@
 
 							<img style="display: none;" id="imgRightLoading" src="images/loading.svg"></img>
 							<iframe scrolling="no" id="iframeRightConjugations"></iframe>
+							<span id="divRightNoNetwork" style="display: none;">Conjugations are only available when connected to the internet</span>
 						</div>
 					</div>
 				</td>
 			</tr>
 		</table>
 
-		<img id="imgSettings" class="settings-icon" src="images/settings-icon.png"/>
+		<div class="icons">
+			<img id="imgAbout" class="icon about-icon" src="images/about-icon.png">
+			<img id="imgSettings" class="icon settings-icon" src="images/settings-icon.png"/>
+		</div> 
 		
 	</body>
 
