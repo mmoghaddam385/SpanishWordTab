@@ -84,3 +84,7 @@ iframe {
 .icon:hover {
     opacity: 0.8;
 }
+
+.about-modal {
+    margin-top: -15px;
+}

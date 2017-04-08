@@ -11,6 +11,12 @@
 		netUtils = window.netUtils;
 		settingsUtils = window.settings;
 		
+		// on chrome > 22? set version text from manifest
+		if (typeof(chrome.runtime.getManifest) === 'function') {
+			let manifest = chrome.runtime.getManifest();
+			$('#h3Version').html('Version ' + manifest.version);
+		}
+
 		$('#iframeLeftConjugations').on('load', onConjugationsLoad(LEFT_SIDE));
 		$('#iframeRightConjugations').on('load', onConjugationsLoad(RIGHT_SIDE));
 
