@@ -87,4 +87,5 @@ iframe {
 
 .about-modal {
     margin-top: -15px;
+    display: none;
 }

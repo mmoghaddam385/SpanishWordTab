@@ -32,6 +32,8 @@
 
 			getRandomWordAndFlags(language).then(function(result) {
 
+				console.log(JSON.stringify(result));
+
 				// set the background
 				setBackground(bgType, result.leftFlag, result.rightFlag);
 
@@ -39,8 +41,8 @@
 				$('#bLeft').html(result.word.leftWord);
 				$('#bRight').html(result.word.rightWord);
 
-				$('#divLeft').fadeIn();
-				$('#divRight').fadeIn();
+				$('#divLeft').fadeIn().show();
+				$('#divRight').fadeIn().show();
 
 				// set the tab title
 				document.title = 'Word of the Tab: ' + result.word.leftWord;
@@ -131,8 +133,6 @@
 		return new Promise(function(resolve, reject) {
 			netUtils.getLocalFile('languages/' + language + '.json', function(result) {
 				let randIndex = Math.floor(Math.random() * result.words.length);
-
-				console.log(JSON.stringify(result.conjugations));
 
 				let res = {
 					word: {
