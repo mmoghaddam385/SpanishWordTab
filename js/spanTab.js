@@ -32,8 +32,6 @@
 
 			getRandomWordAndFlags(language).then(function(result) {
 
-				console.log(JSON.stringify(result));
-
 				// set the background
 				setBackground(bgType, result.leftFlag, result.rightFlag);
 
