@@ -1,5 +1,5 @@
 {
-    "name": "Spanish Word Tab",
+    "name": "Word of the Tab",
     "description": "A chrome new tab extension that displays a random Spanish word and its translation",
     "version": "1.0.0",
     "chrome_url_overrides" : {
@@ -9,6 +9,10 @@
     "options_ui": {
         "page": "optionsPage.html",
         "chrome_style": true
+    },
+
+    "icons": {
+        "128": "images/ext-icon.png"
     },
 
     "permissions": [

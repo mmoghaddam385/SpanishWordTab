@@ -2,10 +2,10 @@
 
     let settingsExport = {
         BACKGROUND_TYPE: 'BACKGROUND_TYPE',
-        DEFAULT_BACKGROUND_TYPE: 'FLAGS',
+        DEFAULT_BACKGROUND_TYPE: 'COLORS',
 
-        FLAG_BACKGROUND: 'FLAGS', // NOTE: change default if you change this
-        COLOR_BACKGROUND: 'COLORS',
+        FLAG_BACKGROUND: 'FLAGS',
+        COLOR_BACKGROUND: 'COLORS', // NOTE: change default if you change this
         
         LANGUAGE: 'LANGUAGE',
         DEFAULT_LANGUAGE: 'spanish_english',
